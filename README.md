@@ -36,4 +36,3 @@ Run the compiled binary with following parameters: \<METHOD NAME\> \<MODEL FILEN
 \<IF PERMIT MIRROR ISOMER\> is the logical value of whether mirror isomers are permitted. If this value is 1, mirror isomers are considered the same thing. If this value is 0, mirror isomers are considered the different things.
 
 \<SUBSTRUCTURE DETERMINATION VALUE\> is the value which determines whether data have a model as a substructure. Please read the paper for details.
- 
