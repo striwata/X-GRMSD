@@ -1,4 +1,3 @@
-# G-RMSD
 G-RMSD: Program code to determine molecular similarity in 3D
 
 
@@ -65,3 +64,4 @@ clus_mode     : If true, RMSD is calculated when the query and target data has t
 reduction     : If true, saving the steps in the RMSD calculation. Default is true. 
 
 iter_num      : How many initial values are specified if reduction is true. Default is 4.
+
