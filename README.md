@@ -17,7 +17,7 @@ There are two types of problems: G-RMSD and Substructure Search.
 
 ### G-RMSD 
 
-Run the compiled binary with following parameters: \<METHOD NAME\> \<MODEL FILENAME\> \<DATA FILENAME\> \<IF PERMIT MIRROR ISOMER\>  \<OUTPUT FILENAME\>, e.g. “./GRMSD MatchFastOpt model/random_GRMSD.txt data/random_GRMSD.txt 1 output/random_GRMSD.txt”.
+Run the compiled binary with following parameters: \<METHOD NAME\> \<MODEL FILENAME\> \<DATA FILENAME\> \<IF PERMIT MIRROR ISOMER\>  \<OUTPUT FILENAME\>, e.g. “./GRMSD MatchFastOpt ../input/model/model_same_random_GRMSD.csv ../input/data/data_same_random_GRMSD.csv 1 ../output/MatchFastOpt_same_random_GRMSD.txt”.
 
 \<METHOD NAME\> is the name of METHOD. In this repository, there are AO, TSR, IsometryOpt and MatchFastOpt.
  
@@ -29,7 +29,7 @@ Run the compiled binary with following parameters: \<METHOD NAME\> \<MODEL FILEN
  
 ### Substructure Search
 
-Run the compiled binary with following parameters: \<METHOD NAME\> \<MODEL FILENAME\> \<DATA FILENAME\> \<IF PERMIT MIRROR ISOMER\> \<SUBSTRUCTURE DETERMINATION VALUE\> \<OUTPUT FILENAME\>, e.g. “./Substructure MatchFPT model/random_Substructure.txt data/random_Substructure.txt 1 0.03 output/random_Substructure.txt”.
+Run the compiled binary with following parameters: \<METHOD NAME\> \<MODEL FILENAME\> \<DATA FILENAME\> \<IF PERMIT MIRROR ISOMER\> \<SUBSTRUCTURE DETERMINATION VALUE\> \<OUTPUT FILENAME\>, e.g. “./Substructure MatchFPT ../input/model/model_random_Substructure.csv ../input/data/data_random_Substructure.csv 1 0.03 ../output/random_Substructure.txt”.
 
 \<METHOD NAME\> is the name of method. In this repository, there are IsometrySearch, MatchFPT, and Improved-MatchFPT.
  
