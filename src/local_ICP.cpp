@@ -4,7 +4,6 @@
 #include "Hungarian.h"
 #include "basic_function.h"
 #include "data_form.h"
-// using namespace Eigen;
 
 Answer local_AO_same_size(vector<MatrixXd> A,vector<MatrixXd> B,MatrixXd initial_matrix,bool mirror,vector<vector<int> > a_assign,vector<vector<int> > b_assign){
     HungarianAlgorithm HungAlgo;
