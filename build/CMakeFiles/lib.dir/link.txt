@@ -1,2 +1,0 @@
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc liblib.a CMakeFiles/lib.dir/src/main_function.cpp.o CMakeFiles/lib.dir/src/cube.cpp.o CMakeFiles/lib.dir/src/local_ICP.cpp.o CMakeFiles/lib.dir/src/basic_function.cpp.o CMakeFiles/lib.dir/src/Hungarian.cpp.o CMakeFiles/lib.dir/src/data_form.cpp.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib liblib.a

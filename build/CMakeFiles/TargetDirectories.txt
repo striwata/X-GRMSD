@@ -1,5 +1,0 @@
-/Users/nabikatomonohiro/thesis/c++_GoICP/G-RMSD/build/CMakeFiles/rebuild_cache.dir
-/Users/nabikatomonohiro/thesis/c++_GoICP/G-RMSD/build/CMakeFiles/edit_cache.dir
-/Users/nabikatomonohiro/thesis/c++_GoICP/G-RMSD/build/CMakeFiles/Substructure.dir
-/Users/nabikatomonohiro/thesis/c++_GoICP/G-RMSD/build/CMakeFiles/GRMSD.dir
-/Users/nabikatomonohiro/thesis/c++_GoICP/G-RMSD/build/CMakeFiles/lib.dir
