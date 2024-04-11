@@ -1,4 +1,4 @@
-# G-RMSD: Exact solution for RMSD minimization between molecules
+# X-GRMSD: Exact solution for RMSD minimization with G-RMSD to Determine Molecular Similarity
 
 ## Introduction
 This repository contains the C++ code to determine similarity of molecules in 3D. It is free software under the terms of the MIT License. Details of the algorithms can be found in our paper:
@@ -13,7 +13,7 @@ Model points: points of the target point set.
 
 ## Running
 
-There are two types of problems: G-RMSD and Substructure Search. 
+There are two types of problems: G-RMSD and Substructure Enumeration. 
 
 ### G-RMSD 
 
@@ -27,7 +27,7 @@ Run the compiled binary with following parameters: \<METHOD NAME\> \<MODEL FILEN
 
 \<OUTPUT FILENAME\> is the output file containing registration results. 
  
-### Substructure Search
+### Substructure Enumeration
 
 Run the compiled binary with following parameters: \<METHOD NAME\> \<MODEL FILENAME\> \<DATA FILENAME\> \<IF PERMIT MIRROR ISOMER\> \<SUBSTRUCTURE DETERMINATION VALUE\> \<OUTPUT FILENAME\>, e.g. “./Substructure MatchFPT ../input/model/model_random_Substructure.csv ../input/data/data_random_Substructure.csv 1 0.03 ../output/random_Substructure.txt”.
 
