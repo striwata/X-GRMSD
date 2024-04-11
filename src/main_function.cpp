@@ -113,8 +113,8 @@ Answer AO_diff_size(MatrixXd A,MatrixXd B,vector<int> label_A,vector<int> label_
 		for(int i_b = 0;i_b<b;i_b++){
 			MatrixXd t = MatrixXd::Zero(3,1);
 			for(int k=0;k<3;k++){
-				t(k,0) += B(k,i_b);
-				t(k,0) -= A(k,i_a);
+				t(k,0) += Bs[0](k,i_b);
+				t(k,0) -= As[0](k,i_a);
 			}	
             for(int i = 0;i<120;i++){
                 MatrixXd Rt = Smentai[i] * t;
