@@ -2,7 +2,7 @@
 
 ## Introduction
 This repository contains the C++ code to determine similarity of molecules in 3D. It is free software under the terms of the MIT License. Details of the algorithms can be found in our paper:
-*This paper has not been published yet
+Tomohiro Nabika, Satoru Iwata, Hiroko Satoh, "Exact solution for minimization of root mean square deviation with G-RMSD to determine molecular similarity", Bulletin of the Chemical Society of Japan, Volume 97, Issue 4, April 2024.
 ## Compiling
 Use cmake to generate desired projects on different platforms.
 
