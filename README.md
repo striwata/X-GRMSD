@@ -17,7 +17,7 @@ There are two types of problems: G-RMSD and Substructure Enumeration.
 
 ### G-RMSD 
 
-Run the compiled binary with following parameters: \<METHOD NAME\> \<MODEL FILENAME\> \<DATA FILENAME\> \<IF PERMIT MIRROR ISOMER\>  \<OUTPUT FILENAME\>, e.g. “./GRMSD MatchFastOpt ./input/model/model_same_random_GRMSD.csv ./input/data/data_same_random_GRMSD.csv 1 ./output/MatchFastOpt_same_random_GRMSD.txt”.
+Run the compiled binary with following parameters: \<METHOD NAME\> \<MODEL FILENAME\> \<DATA FILENAME\> \<IF PERMIT MIRROR ISOMER\>  \<OUTPUT FILENAME\> \<If MULTIPLE MODEL\>, e.g. “./GRMSD MatchFastOpt ./input/model/model_same_random_GRMSD.csv ./input/data/data_same_random_GRMSD.csv 1 ./output/MatchFastOpt_same_random_GRMSD.txt” 1.
 
 \<METHOD NAME\> is the name of METHOD. In this repository, there are AO, TSR, IsometryOpt and MatchFastOpt.
  
@@ -26,10 +26,12 @@ Run the compiled binary with following parameters: \<METHOD NAME\> \<MODEL FILEN
 \<IF PERMIT MIRROR ISOMER\> is the logical value of whether mirror isomers are permitted. If this value is 1, mirror isomers are considered the same thing. If this value is 0, mirror isomers are considered the different things.
 
 \<OUTPUT FILENAME\> is the output file containing registration results. 
+
+\<If MULTIPLE MODEL\> is the logical value of whether there are multiple models. If this value is 1, there is one model for each data. If this value is 0, there is one model for all data.
  
 ### Substructure Enumeration
 
-Run the compiled binary with following parameters: \<METHOD NAME\> \<MODEL FILENAME\> \<DATA FILENAME\> \<IF PERMIT MIRROR ISOMER\> \<SUBSTRUCTURE DETERMINATION VALUE\> \<OUTPUT FILENAME\>, e.g. “./Substructure MatchFPT ./input/model/model_random_Substructure.csv ./input/data/data_random_Substructure.csv 1 0.03 ./output/random_Substructure.txt”.
+Run the compiled binary with following parameters: \<METHOD NAME\> \<MODEL FILENAME\> \<DATA FILENAME\> \<IF PERMIT MIRROR ISOMER\> \<SUBSTRUCTURE DETERMINATION VALUE\> \<OUTPUT FILENAME\> \<If MULTIPLE MODEL\>, e.g. “./Substructure MatchFPT ./input/model/model_random_Substructure.csv ./input/data/data_random_Substructure.csv 1 0.03 ./output/random_Substructure.txt” 1.
 
 \<METHOD NAME\> is the name of method. In this repository, there are IsometrySearch, MatchFPT, and Improved-MatchFPT.
  
@@ -40,3 +42,5 @@ Run the compiled binary with following parameters: \<METHOD NAME\> \<MODEL FILEN
 \<SUBSTRUCTURE DETERMINATION VALUE\> is the value which determines whether data have a model as a substructure. Please read the paper for details.
 
 \<OUTPUT FILENAME\> is the output file containing registration results.
+
+\<If MULTIPLE MODEL\> is the logical value of whether there are multiple models. If this value is 1, there is one model for each data. If this value is 0, there is one model for all data.
