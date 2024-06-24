@@ -17,28 +17,30 @@ bool find_P(vector<Answer> ans_multiple,MatrixXd P){
     for(int i=0;i<ans_multiple.size();i++){
         MatrixXd P0 = ans_multiple[i].P;
         bool find = true;
-        for(int i=0;i<a;i++){
-            bool found = false;
-            for(int j=0;j<b;j++){
-                if(P0(j,i) == 1){
-                    for(int k=0;k<a;k++){
-                        if(P(j,k) == 1){
-                            found = true;
-                            break;
-                        }
-                    }
-                    break;
-                }
-            }
-            if(!found){
-                find = false;
-                break;
-            }
-        }
-        if(find){
+        if(P0 == P){
             return true;
         }
-        
+        // for(int i=0;i<a;i++){
+        //     bool found = false;
+        //     for(int j=0;j<b;j++){
+        //         if(P0(j,i) == 1){
+        //             for(int k=0;k<a;k++){
+        //                 if(P(j,k) == 1){
+        //                     found = true;
+        //                     break;
+        //                 }
+        //             }
+        //             break;
+        //         }
+        //     }
+        //     if(!found){
+        //         find = false;
+        //         break;
+        //     }
+        // }
+        // if(find){
+        //     return true;
+        // } 
     }
     return false;
 }
