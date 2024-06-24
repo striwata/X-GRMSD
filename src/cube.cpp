@@ -1021,16 +1021,21 @@ bool calculate_lower_K_best_eps(Cube C,vector<MatrixXd> As,vector<MatrixXd> Bs,b
         }
         if(sqrt(ans_candidate/N) < eps){
             MatrixXd P = MatrixXd::Zero(len_b,len_a);
+            int index_i = 0;
             for(int i=0;i<As.size();i++){
                 int a = As[i].cols();
                 int b = Bs[i].cols();
+                if(a_assign[index_i].size() == 0){
+                    index_i++;
+                }
                 for(int i_a=0;i_a<a;i_a++){
                     for(int i_b=0;i_b<b;i_b++){
                         if(Ps[i](i_b,i_a) == 1){
-                            P(b_assign[i][i_b],a_assign[i][i_a]) = 1;
+                            P(b_assign[index_i][i_b],a_assign[index_i][i_a]) = 1;
                         }
                     }
                 }
+                index_i++;
             }
             bool found = find_P(ans_multiple,P);
             if(!found){
@@ -1042,7 +1047,6 @@ bool calculate_lower_K_best_eps(Cube C,vector<MatrixXd> As,vector<MatrixXd> Bs,b
             }
             
         }
-
         for(int iter=0;iter<As.size();iter++){
             cost_from Cost_new;
             Cost_new.froms = Cost.froms;

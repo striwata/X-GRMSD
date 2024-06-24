@@ -572,7 +572,12 @@ vector<Answer> IsometrySearch(MatrixXd A,MatrixXd B,vector<int> label_A,vector<i
 					Bs_temp.push_back(B_temp);
 				}
 				vector<vector<int> > bb_assign;
+				int index_jb = 0;
 				for(int jb = 0;jb<Bs.size();jb++){
+					if(a_assign[index_jb].size() == 0){
+						bb_assign.push_back(b_assign[index_jb]);
+						index_jb += 1;
+					}
 					vector<int> assignment;
 					for(int j=0;j<Bs_temp[jb].cols();j++){
 						double b_norm = 0;
@@ -585,7 +590,7 @@ vector<Answer> IsometrySearch(MatrixXd A,MatrixXd B,vector<int> label_A,vector<i
 							NN+=1;
 						}
 					}
-					if (assignment.size() < aa){
+					if(assignment.size() < a_assign[index_jb].size()){
 						valid = false;
 					}
 			        MatrixXd BB = MatrixXd::Zero(3,assignment.size());
@@ -594,10 +599,11 @@ vector<Answer> IsometrySearch(MatrixXd A,MatrixXd B,vector<int> label_A,vector<i
 						for(int k=0;k<3;k++){
 							BB(k,j) = Bs_temp[jb](k,assignment[j]);
 						}
-						b_assign_temp.push_back(b_assign[jb][assignment[j]]);
+						b_assign_temp.push_back(b_assign[index_jb][assignment[j]]);
 					}
 					bb_assign.push_back(b_assign_temp);
 					BBs.push_back(BB);
+					index_jb += 1;
 				}
 				if(!valid){
 					continue;
