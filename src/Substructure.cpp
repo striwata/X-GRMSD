@@ -121,6 +121,7 @@ int main(int argc, char *argv[]){
                 B(2,i) = strvec[2];
                 pen_model[i] = (int)strvec[3];
             }
+            cout << "Model loaded" << endl;
             while(getline(ifs_csv_file_data, line)) {
                 vector<double> strvec = split(line, ',');
                 int N_data = (int)strvec[0];

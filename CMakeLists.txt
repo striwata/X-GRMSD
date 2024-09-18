@@ -29,3 +29,13 @@ target_compile_options(Substructure PUBLIC -O3)
 target_compile_features(Substructure PUBLIC cxx_std_11)
 
 target_link_libraries(Substructure lib)
+
+
+add_executable(Substructure_lattice 
+        src/Substructure_lattice.cpp
+        )
+
+target_compile_options(Substructure_lattice PUBLIC -O3)
+target_compile_features(Substructure_lattice PUBLIC cxx_std_11)
+
+target_link_libraries(Substructure_lattice lib)

@@ -15,6 +15,7 @@ typedef struct {
     MatrixXd t;
     bool mirror;
     MatrixXd P;
+    vector<vector<int> > lattice_count;
 } Answer;
 
 typedef struct {
@@ -42,6 +43,7 @@ typedef struct {
     vector<int> assignment;
     vector<int> not_assign;
     vector<vector<int> > assign_candidate;
+    vector<vector<int> > lattice_count;
     double E;
 } permutation_space;
 

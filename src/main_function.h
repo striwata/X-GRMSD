@@ -19,5 +19,6 @@ Answer MatchFastOpt_diff_size(MatrixXd A,MatrixXd B,vector<int> label_A,vector<i
 vector<Answer> IsometrySearch(MatrixXd A,MatrixXd B,vector<int> label_A,vector<int> label_B,double eps,bool permit_mirror);
 vector<Answer> MatchFPT(MatrixXd A,MatrixXd B,vector<int> label_A,vector<int> label_B,double eps,bool permit_mirror);
 vector<Answer> Improved_MatchFPT(MatrixXd A,MatrixXd B,vector<int> label_A,vector<int> label_B,double eps,bool permit_mirror);
+vector<Answer> MatchFPT_lattice(MatrixXd A,MatrixXd B,vector<int> label_A,vector<int> label_B,double eps,bool permit_mirror, vector<vector<double> > lattice);
 
 #endif
