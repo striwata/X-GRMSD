@@ -13,6 +13,7 @@ Answer AO_same_size(MatrixXd A,MatrixXd B,vector<int> label_A,vector<int> label_
 Answer TSR_same_size(MatrixXd A,MatrixXd B,vector<int> label_A,vector<int> label_B,vector<MatrixXd> Smentai,bool permit_mirror,double alpha);
 Answer AO_diff_size(MatrixXd A,MatrixXd B,vector<int> label_A,vector<int> label_B,vector<MatrixXd> Smentai,bool permit_mirror);
 Answer IsometryOpt_same_size(MatrixXd A,MatrixXd B,vector<int> label_A,vector<int> label_B,bool permit_mirror,double k ,double l);
+Answer IsometryOpt_same_size_eps(MatrixXd A,MatrixXd B,vector<int> label_A,vector<int> label_B,bool permit_mirror,double k ,double l,double eps);
 Answer IsometryOpt_diff_size(MatrixXd A,MatrixXd B,vector<int> label_A,vector<int> label_B,bool permit_mirror,double k ,double l);
 Answer MatchFastOpt_same_size(MatrixXd A,MatrixXd B,vector<int> label_A,vector<int> label_B,bool permit_mirror);
 Answer MatchFastOpt_diff_size(MatrixXd A,MatrixXd B,vector<int> label_A,vector<int> label_B,bool permit_mirror);

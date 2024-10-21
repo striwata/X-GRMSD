@@ -219,6 +219,82 @@ Answer IsometryOpt_same_size(MatrixXd A,MatrixXd B,vector<int> label_A,vector<in
 
 }
 
+Answer IsometryOpt_same_size_eps(MatrixXd A,MatrixXd B,vector<int> label_A,vector<int> label_B,bool permit_mirror,double k ,double l, double eps){
+	int a = A.cols();
+    int b = B.cols();
+
+    vector<MatrixXd> As;
+    vector<MatrixXd> Bs;
+
+	MatrixXd Ag = MatrixXd::Zero(3,1);
+	MatrixXd Bg = MatrixXd::Zero(3,1);
+
+	vector<vector<int> > a_assign;
+	vector<vector<int> > b_assign;
+
+    Matrix_vector(A,B,As,Bs,label_A,label_B,a_assign,b_assign,Ag,Bg);
+
+    vector<double> r;
+	for(int k=0;k<3;k++){
+		r.push_back(0);
+	}
+	Cube Cr;
+	Cr.center = r;
+	Cr.diameter = PI;
+	Cr.lower = 0;
+	Cr.upper = INFINITY;
+	Cr.mirror = 0;
+	Cr.count = 0;
+	priority_queue<Cube> que;
+	que.push(Cr);
+	if(permit_mirror){
+		Cube Crr;
+		Crr.count = 0;
+		Crr.center = r;
+		Crr.diameter = PI;
+		Crr.lower = 0;
+		Crr.upper = INFINITY;
+		Crr.mirror = 1;
+		que.push(Crr);
+	}
+	MatrixXd initial_matrix = make_rotation(r,0);
+	Answer ans = local_AO_same_size(As,Bs,initial_matrix,0,a_assign,b_assign);
+	ans.E = eps*eps*a;
+	for(int i=0;i<1000000;i++){
+		if(que.size()==0){
+			break;
+		}
+		Cube C = que.top();
+		que.pop();
+		vector<Cube> Cs = divide(C);
+		for(int j=0;j<8;j++){
+			Cube CC = Cs[j];
+			if(!check_in_sphere(CC)){
+				continue;
+			}
+			double E_upper = calculate_upper(CC,As,Bs,CC.mirror);
+			CC.upper = E_upper;
+			if(E_upper<ans.E){
+				Answer temp_ans = local_AO_same_size(As,Bs,make_rotation(CC.center,CC.mirror),CC.mirror,a_assign,b_assign);
+				if (temp_ans.E < ans.E){
+					ans = temp_ans;
+				}
+			}
+			int K = int(k*CC.count +l+1-k+0.01);
+			bool fin = calculate_lower_K_best(CC,As,Bs,CC.mirror,ans,CC.lower,K,a_assign,b_assign);
+			if(fin){
+				continue;
+			}
+			que.push(CC);
+		}
+	}
+    ans.E = sqrt(ans.E/a);
+	ans.t = Ag - ans.R*Bg;
+	cout << "finished" << endl;
+	return ans;
+
+}
+
 Answer IsometryOpt_diff_size(MatrixXd A,MatrixXd B,vector<int> label_A,vector<int> label_B,bool permit_mirror,double k ,double l){
 	int a = A.cols();
     int b = B.cols();

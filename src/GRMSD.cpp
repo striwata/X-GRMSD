@@ -111,6 +111,10 @@ int main(int argc, char *argv[]){
 					Answer ans = IsometryOpt_same_size(BB[i],AA[i],pen_model[i],pen_data[i],permit_mirror,1,1);
 					output(ans,outputfile);
 				}
+				if(function_name == "IsometryOptEps"){
+					Answer ans = IsometryOpt_same_size_eps(BB[i],AA[i],pen_model[i],pen_data[i],permit_mirror,1,1,0.2);
+					output(ans,outputfile);
+				}
 				if(function_name == "MatchFastOpt"){
 					Answer ans = MatchFastOpt_same_size(BB[i],AA[i],pen_model[i],pen_data[i],permit_mirror);
 					output(ans,outputfile);

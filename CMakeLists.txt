@@ -39,3 +39,12 @@ target_compile_options(Substructure_lattice PUBLIC -O3)
 target_compile_features(Substructure_lattice PUBLIC cxx_std_11)
 
 target_link_libraries(Substructure_lattice lib)
+
+add_executable(Substructure_ASE 
+        src/Substructure_ASE.cpp
+        )
+
+target_compile_options(Substructure_ASE PUBLIC -O3)
+target_compile_features(Substructure_ASE PUBLIC cxx_std_11)
+
+target_link_libraries(Substructure_ASE lib)

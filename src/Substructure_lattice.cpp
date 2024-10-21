@@ -205,9 +205,7 @@ int main(int argc, char *argv[]){
                     output(ans,outputfile);
                     
                 }
-
             }
-
         }
         outputfile.close();
 
