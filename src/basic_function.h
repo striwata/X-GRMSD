@@ -11,6 +11,7 @@ using namespace Eigen;
 
 MatrixXd calculate_from_assignment(vector<MatrixXd> T,vector<MatrixXd> A,vector<MatrixXd> B,bool mirror);
 MatrixXd calculate_from_assignment_not_vector(MatrixXd P,MatrixXd A,MatrixXd B,bool permit_mirror);
+MatrixXd calculate_from_assignment_not_vector_weight(MatrixXd P,MatrixXd A,MatrixXd B,bool permit_mirror,vector<int> label_A);
 bool find_P(vector<Answer> ans_multiple,MatrixXd T);
 double difference_second_largest_Dijkstra_edge_change_assignment(vector<int> &assignment,vector<vector<double> > M,edge &E,bool &cycle);
 double calculate_ans(vector<MatrixXd> A,vector<MatrixXd> B,MatrixXd R,vector<vector<int> > assignments);

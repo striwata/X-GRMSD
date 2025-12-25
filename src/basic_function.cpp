@@ -78,6 +78,24 @@ MatrixXd calculate_from_assignment_not_vector(MatrixXd P,MatrixXd A,MatrixXd B,b
     return R;
 }
 
+MatrixXd calculate_from_assignment_not_vector_weight(MatrixXd P,MatrixXd A,MatrixXd B,bool permit_mirror,vector<int> label_A){
+    MatrixXd W = MatrixXd::Zero(label_A.size(),label_A.size());
+    for(int i=0;i<label_A.size();i++){
+        W(i,i) = label_A[i];
+    }
+    MatrixXd BPA = B*P*W*A.transpose();
+    MatrixXd umeyama = MatrixXd::Identity(3,3);
+    umeyama(2,2) = -1;
+    MatrixXd R;
+    JacobiSVD< Matrix<double, 3, 3> > svd(BPA, Eigen::ComputeFullU |Eigen::ComputeFullV);
+    if ((svd.matrixV().determinant()*svd.matrixU().determinant()>0) || (permit_mirror)){
+        R = svd.matrixV()*svd.matrixU().transpose();
+    }else{
+        R = svd.matrixV()*umeyama*svd.matrixU().transpose();
+    }
+    return R;
+}
+
 // Calculate the second largest matching
 double difference_second_largest_Dijkstra_edge_change_assignment(vector<int> &assignment,vector<vector<double> > M,edge &E,bool &cycle){
     double inf = INFINITY;

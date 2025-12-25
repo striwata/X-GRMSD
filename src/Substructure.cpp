@@ -105,6 +105,14 @@ int main(int argc, char *argv[]){
                 output(ans_multiple,outputfile);
             }
         }
+
+        if(function_name == "MatchFPT_with_weight"){
+            for(int i=0;i<AA.size();i++){
+                vector<Answer> ans_multiple = MatchFPT_with_weight(BB[i],AA[i],pen_model[i],pen_data[i],r,permit_mirror);
+                output(ans_multiple,outputfile);
+            }
+        }
+
         outputfile.close();
     }else{
         string line;
