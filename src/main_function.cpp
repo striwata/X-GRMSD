@@ -880,14 +880,175 @@ vector<Answer> MatchFPT(MatrixXd A,MatrixXd B,vector<int> label_A,vector<int> la
 						Answer ans;
 						ans.E = pre_ans;
 						MatrixXd T = MatrixXd::Zero(b,a);
-						P.assignment.push_back(P.not_assign[i]);
-						for(int i=0;i<a;i++){
-							T(P.assignment[i],i) = 1;
+						vector<int> assignment = P.assignment;
+						assignment.push_back(P.not_assign[i]);
+						for(int t=0;t<a;t++){
+							T(assignment[t],t) = 1;
 						}
 						bool found = find_P(ans_multiple,T);
 						if(!found){
 							ans.P = T;
 							ans.R = calculate_from_assignment_not_vector(T,A,B,permit_mirror);
+							ans.t = (Ag + AAg) - ans.R*(Bg + BBg);
+							ans_multiple.push_back(ans);
+						}
+					}else{
+						permutation_space new_per;
+						new_per.assignment = P.assignment;
+						new_per.assignment.push_back(P.not_assign[i]);
+						new_per.not_assign = P.not_assign;
+						new_per.not_assign.erase(new_per.not_assign.begin()+i);
+						Ps.push_back(new_per);
+					}
+				}
+			}
+	    }
+	}
+	return ans_multiple;
+}
+
+vector<Answer> MatchFPT_with_weight(MatrixXd A,MatrixXd B,vector<int> label_A,vector<int> label_B,double eps,bool permit_mirror){
+	int a = A.cols();
+    int b = B.cols();
+
+	MatrixXd Ag = MatrixXd::Zero(3,1);
+    MatrixXd Bg = MatrixXd::Zero(3,1);
+
+	int total_label_A = 0;
+	for(int i=0;i<3;i++){
+		int sum_label_A = 0;
+		int sum_label_B = 0;
+		for(int j=0;j<a;j++){
+			Ag(i,0) = Ag(i,0) + A(i,j)*label_A[j];
+			sum_label_A += label_A[j];
+		}
+		for(int j=0;j<b;j++){
+			Bg(i,0) = Bg(i,0) + B(i,j)*label_B[j];
+			sum_label_B += label_B[j];
+		}
+		Ag(i,0) = Ag(i,0)/sum_label_A;
+		Bg(i,0) = Bg(i,0)/sum_label_B;
+		for(int j=0;j<a;j++){
+			A(i,j) = A(i,j) - Ag(i,0);
+		}
+		for(int j=0;j<b;j++){
+			B(i,j) = B(i,j) - Bg(i,0);
+		}
+		total_label_A = sum_label_A;
+	}
+
+	double max_diameter = 0;
+	for(int j=0;j<a;j++){
+		double ell = 0;
+		for(int k=0;k<3;k++){
+			ell += A(k,j)*A(k,j);
+		}
+		if(max_diameter<ell){
+			max_diameter = ell;
+		}
+	}
+	max_diameter = sqrt(max_diameter);
+	vector<Answer> ans_multiple;
+	for(int i=0;i<b;i++){
+		vector<permutation_space> Ps;
+		permutation_space P0;
+        for(int j=0;j<b;j++){
+			double b_norm = 0;
+			for(int k=0;k<3;k++){
+				b_norm += (B(k,j) - B(k,i))*(B(k,j) - B(k,i));
+			}
+			b_norm = sqrt(b_norm);
+			b_norm = 0;
+			if(b_norm < 2*(eps*sqrt(a) + max_diameter)){
+				P0.not_assign.push_back(j);
+			}
+		}
+		Ps.push_back(P0);
+		while(!Ps.empty()){
+			permutation_space P = Ps.back();
+			Ps.pop_back();
+			int N = P.assignment.size();
+			for(int i=0;i<P.not_assign.size();i++){
+				if(label_A[N] != label_B[P.not_assign[i]]){
+				    continue;
+			    }
+				MatrixXd BB = MatrixXd::Zero(3,N+1);
+				MatrixXd AA = MatrixXd::Zero(3,N+1);
+				for(int j=0;j<N;j++){
+					for(int k=0;k<3;k++){
+						BB(k,j) = B(k,P.assignment[j]);
+						AA(k,j) = A(k,j);
+					}
+				}
+				for(int k=0;k<3;k++){
+					BB(k,N) = B(k,P.not_assign[i]);
+					AA(k,N) = A(k,N);
+				}
+				MatrixXd BBg = MatrixXd::Zero(3,1);
+				MatrixXd AAg = MatrixXd::Zero(3,1);
+				for(int k=0;k<3;k++){
+					double sum_label_A = 0;
+					for(int j=0;j<N+1;j++){
+						BBg(k,0) = BBg(k,0) + BB(k,j)*label_A[j];
+						AAg(k,0) = AAg(k,0) + AA(k,j)*label_A[j];
+						sum_label_A += label_A[j];
+					}
+					BBg(k,0) = BBg(k,0)/sum_label_A;
+					AAg(k,0) = AAg(k,0)/sum_label_A;
+					for(int j=0;j<N+1;j++){
+						AA(k,j) = AA(k,j) - AAg(k,0);
+						BB(k,j) = BB(k,j) - BBg(k,0);
+					}
+				}
+				MatrixXd W = MatrixXd::Zero(N+1,N+1);
+				for(int j=0;j<N+1;j++){
+					W(j,j) = label_A[j];
+				}
+				JacobiSVD< Matrix<double, 3, 3> > svd(BB*W*AA.transpose(), Eigen::ComputeFullU |Eigen::ComputeFullV);
+				double R_sum = 0;
+				if(permit_mirror){
+					for(int k=0;k<3;k++){
+						R_sum += svd.singularValues()(k,0);
+					}
+				}else{
+					if((svd.matrixV().determinant()*svd.matrixU().determinant()>0)){
+						for(int k=0;k<3;k++){
+							R_sum += svd.singularValues()(k,0);
+						}
+					}else{
+						for(int k=0;k<2;k++){
+							R_sum += svd.singularValues()(k,0);
+						}
+						R_sum -= svd.singularValues()(2,0);
+					}
+				}
+				double pre_ans = 0;
+				for(int j=0;j<N+1;j++){
+					for(int k=0;k<3;k++){
+						pre_ans += AA(k,j)*AA(k,j)*label_A[j] + BB(k,j)*BB(k,j)*label_A[j];
+					}
+				}
+				pre_ans -= R_sum*2;
+				if(pre_ans < 0){
+					pre_ans = 0;
+				}
+				pre_ans = sqrt(pre_ans/(total_label_A));
+				if(pre_ans>eps){
+					continue;
+				}else{
+					if(N+1==a){
+						Answer ans;
+						ans.E = pre_ans;
+						MatrixXd T = MatrixXd::Zero(b,a);
+						vector<int> assignment = P.assignment;
+						assignment.push_back(P.not_assign[i]);
+						for(int i=0;i<a;i++){
+							T(assignment[i],i) = 1;
+						}
+						bool found = find_P(ans_multiple,T);
+						if(!found){
+							ans.P = T;
+							ans.R = calculate_from_assignment_not_vector_weight(T,A,B,permit_mirror,label_A);
 							ans.t = (Ag + AAg) - ans.R*(Bg + BBg);
 							ans_multiple.push_back(ans);
 						}
@@ -1024,9 +1185,10 @@ vector<Answer> Improved_MatchFPT(MatrixXd A,MatrixXd B,vector<int> label_A,vecto
 					Answer ans;
 					ans.E = pre_ans;
 					MatrixXd T = MatrixXd::Zero(b,a);
-					P.assignment.push_back(P.not_assign[i]);
+					vector<int> assignment = P.assignment;
+					assignment.push_back(P.not_assign[i]);
 					for(int i=0;i<a;i++){
-						T(P.assignment[i],i) = 1;
+						T(assignment[i],i) = 1;
 					}
 					bool found = find_P(ans_multiple,T);
 					if(!found){
